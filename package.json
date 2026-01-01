@@ -1,0 +1,35 @@
+{
+  "name": "codeapp",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krish02git/codeApp.git"
+  },
+  "author": "krish",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/krish02git/codeApp/issues"
+  },
+  "homepage": "https://github.com/krish02git/codeApp#readme",
+  "description": "",
+  "devDependencies": {
+    "parcel": "^2.16.3"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.21.0",
+    "nodemon": "^3.1.11",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tailwindcss": "^4.1.18",
+    "validator": "^13.15.26"
+  }
+}

@@ -1,0 +1,58 @@
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+// Document1 
+const userSchema = new Schema({
+    firstName: {
+        type: String,
+        required: true,
+        minLength: 3,
+        maxLength: 15
+    },
+    lastName: {
+        type: String,
+        minLength: 3,
+        maxLength: 15
+    },
+    emailId: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true,
+        maxlength: 254,
+        index: true,
+        match: /^\S+@\S+\.\S+$/,
+        immutable: true
+    },
+    age: {
+        type: Number,
+        required: true,
+        min: 12,
+        max: 80,
+        validate: {
+            validator: Number.isInteger,
+            message: "{VALUE} is not an integer"
+        }
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user',
+        required: true
+    },
+    problemSolved: {
+        type: [String],
+        default: []
+    },
+    problemsSolvedCount: {
+        type: Number,
+        default: 0,
+        min: 0
+    }
+
+}, { timestamps: true })
+
+// TableName/collectionName , SchemaFormate
+const User = mongoose.model("user", userSchema);
+module.exports = User;
