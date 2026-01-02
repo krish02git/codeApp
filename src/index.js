@@ -14,7 +14,6 @@ app.use(cookieParser());
 
 // DB :-
 const main = require('./config/DB');
-const cookieParser = require('cookie-parser');
 
 
 

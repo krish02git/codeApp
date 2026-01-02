@@ -27,7 +27,6 @@ const userSchema = new Schema({
     },
     age: {
         type: Number,
-        required: true,
         min: 12,
         max: 80,
         validate: {
@@ -49,6 +48,9 @@ const userSchema = new Schema({
         type: Number,
         default: 0,
         min: 0
+    },password :{
+        type:String,
+        required : true
     }
 
 }, { timestamps: true })
