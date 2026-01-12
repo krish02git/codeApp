@@ -31,3 +31,38 @@ const register = async (req, res) => {
         res.status(400).send("Error : " + err.message);
     }
 }
+
+const login = async (req, res)=>{
+    try {
+        const {emailId, password} = req.body;
+        if(!emailId)
+            throw new Error("Invalid Credintial");
+        if(!password)
+            throw new Error("Invalid Credintial");
+
+        // Get email users :-
+        const user = await User.findOne({emailId});
+        const match = bcrypt.compare(password, user.password);
+        if(!match){
+            throw new Error("Invalid credintial");
+        }
+        
+        // JWT 
+        const token = jwt.sign({_id:user._id, emailId:user.emailId}, process.env.JWT_SECRECT_KEY, {expiresIn:60*60*1000});
+        res.cookie("token", token);
+        res.status(200).send("Logged in successfully");
+
+    }catch(err){
+         res.status(401).send("Error : " + err.message);
+    }
+}
+
+const logout = async (req,res)=>{
+   try{
+    
+   }catch(err){
+
+   }
+}
+
+module.exports = {register, login, logout};

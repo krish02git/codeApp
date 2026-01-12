@@ -15,12 +15,13 @@ app.use(cookieParser());
 // DB :-
 const main = require('./config/DB');
 
+// Router :-
+const authRouter = require("./routes/userAuth");
 
 
 
 
-
-
+app.use('/user', authRouter);
 
 
 

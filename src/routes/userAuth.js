@@ -1,5 +1,8 @@
 const express = require("express");
 const authRouter = express.Router(); // Creates Route
+// Add those controllers
+const {register,login,logout,getPfp} = require('../controllers/userAuthentication');
+
 
 // Register : New User
 authRouter.post('/register', register);
@@ -8,4 +11,9 @@ authRouter.post('/login', login);
 // Logout : user exist
 authRouter.post('/logout', logout);
 // GetProfile : user exists
-authRouter.get('/getPfp', getPfp);
+// authRouter.get('/getPfp', getPfp);
+
+
+
+
+module.exports = authRouter;
