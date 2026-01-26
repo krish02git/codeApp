@@ -14,6 +14,7 @@ app.use(cookieParser());
 
 // DB :-
 const main = require('./config/DB');
+const redisClient = require('./config/redis');
 
 // Router :-
 const authRouter = require("./routes/userAuth");
@@ -33,8 +34,9 @@ app.use('/user', authRouter);
 
 const Connection = async ()=>{
     try{
-        await main();
-        console.log("Connected to mongoose DB !");
+        await Promise.all([redisClient.connect(), main()]);
+        console.log("Connected to Redis & mongoose DB !");
+
 
         app.listen(process.env.PORT, ()=>{
             console.log("Port is listening  " + process.env.PORT);

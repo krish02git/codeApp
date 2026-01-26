@@ -2,9 +2,10 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-
 const User = require('../models/user');
 const validate = require('../utils/validator');
+
+const redisClient = require('../config/redis');
 
 const register = async (req, res) => {
     try {
@@ -59,9 +60,17 @@ const login = async (req, res)=>{
 
 const logout = async (req,res)=>{
    try{
-    
+    // Validate Jwt token :- If don'y exist already logout :- BY Middleware
+    // Add in Redis Blacklist :- 
+    const token = req.cookies.token;
+    const payload = jwt.decode(token);
+    await redisClient.set(`token:${token}`, "Block"); // key value
+    await redisClient .expireAt(`token:${token}`, payload.exp);
+    res.cookie("token", null, {expires : new Date(Date.now())});
+    res.send("Logged Out successfully!");
+    // clear cookuies :- 
    }catch(err){
-
+    res.status(503).send("Error: " + err.message);
    }
 }
 
