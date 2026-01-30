@@ -9,6 +9,8 @@ const redisClient = require('../config/redis');
 
 const register = async (req, res) => {
     try {
+        // Default role is user!
+        req.body.role = 'user';
         // Validater :-
         validate(req.body);
 
@@ -19,7 +21,7 @@ const register = async (req, res) => {
         const user = await User.create(req.body);
 
         // Jwt token created :- jwt key -> node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-        const token = jwt.sign({ _id: user._id, emailId: req.body.emailId }, process.env.JWT_SECRECT_KEY, { expiresIn: 60 * 60 }) // payload, SecretKey, Time
+        const token = jwt.sign({ _id: user._id, emailId: req.body.emailId, role:'user' }, process.env.JWT_SECRECT_KEY, { expiresIn: 60 * 60 }) // payload, SecretKey, Time
         res.cookie('token', token, {
             httpOnly: true,          // JS can't access (XSS protection)
             secure: true,            // HTTPS only (use false in local dev)
@@ -49,7 +51,7 @@ const login = async (req, res)=>{
         }
         
         // JWT 
-        const token = jwt.sign({_id:user._id, emailId:user.emailId}, process.env.JWT_SECRECT_KEY, {expiresIn:60*60*1000});
+        const token = jwt.sign({_id:user._id, emailId:user.emailId,  role:user.role }, process.env.JWT_SECRECT_KEY, {expiresIn:60*60*1000});
         res.cookie("token", token);
         res.status(200).send("Logged in successfully");
 
@@ -74,4 +76,33 @@ const logout = async (req,res)=>{
    }
 }
 
-module.exports = {register, login, logout};
+const adminRegister= async (req,res)=>{
+     try {
+        // Default role is user! Admin can do reg for both admin or user.
+        // Send role :- by reg admin
+        // Validater :-
+        validate(req.body);
+
+        // Hashing :-
+        req.body.password = await bcrypt.hash(req.body.password, 10);
+
+        // Add to DB :-
+        const user = await User.create(req.body);
+
+        // Jwt token created :- jwt key -> node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+        const token = jwt.sign({ _id: user._id, emailId: req.body.emailId, role:user.role }, process.env.JWT_SECRECT_KEY, { expiresIn: 60 * 60 }) // payload, SecretKey, Time
+        res.cookie('token', token, {
+            httpOnly: true,          // JS can't access (XSS protection)
+            secure: true,            // HTTPS only (use false in local dev)
+            sameSite: "strict",      // CSRF protection
+            maxAge: 60 * 60 * 1000   // 1 hour
+        }); // key : value : maxAge in ms 
+
+        res.status(201).send("User Registered."); // suscess
+    } catch (err) {
+        res.status(400).send("Error : " + err.message);
+    }
+}
+
+
+module.exports = {register, login, logout, adminRegister};
