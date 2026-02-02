@@ -3,15 +3,15 @@ const { Schema } = mongoose;
 
 const problemSchema = new Schema({
     title: {
-        require: true,
+        required: true,
         type: String
     },
     description: {
-        require: true,
+        required: true,
         type: String
     },
     difficulty: {
-        require: true,
+        required: true,
         type: String,
         enum: ['Easy', 'Medium', 'Hard']
     },
@@ -53,21 +53,21 @@ const problemSchema = new Schema({
             "Design",
             "Concurrency"
         ],
-        require:true
+        required:true
     },
     visibleTestCases:[
         {
             input:{
                 type:String,
-                require:true
+                required:true
             },
             output:{
                 type:String,
-                require:true
+                required:true
             },
             explanation:{
                 type:String,
-                require:true
+                required:true
             }
         }
     ],
@@ -75,11 +75,11 @@ const problemSchema = new Schema({
         {
             input:{
                 type:String,
-                require:true
+                required:true
             },
             output:{
                 type:String,
-                require:true
+                required:true
             }
         }
     ],
@@ -87,19 +87,31 @@ const problemSchema = new Schema({
         {
             language:{
                 type:String,
-                require:true
+                required:true
             },
             initialCode:{
                 type:String,
-                require:true
+                required:true
             }
         }
     ],
     problemCreater:{
         type: Schema.Types.ObjectId, // Admin _id is stored!
         ref:'user', // Refer this collectionsss
-        require:true
-    }
+        required:true
+    },
+    referenceSolution:[
+        {
+            language:{
+                type:String,
+                required:true
+            },
+            initialCode:{
+                type:String,
+                required:true
+            }
+        }
+    ]
 }, { timestamps: true })
 
 
