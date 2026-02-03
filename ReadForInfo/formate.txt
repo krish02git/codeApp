@@ -1,0 +1,99 @@
+{
+  "title": "Two Sum",
+  "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\n\nInput Format:\nLine 1: Array in JSON format [num1, num2, ...]\nLine 2: Target integer\n\nOutput Format:\nArray of two indices in JSON format [index1, index2]",
+  "difficulty": "Easy",
+  "tags": ["Array", "Hash Table"],
+  "visibleTestCases": [
+    {
+      "input": "[2,7,11,15]\n9",
+      "output": "[0,1]",
+      "explanation": "nums[0] + nums[1] = 2 + 7 = 9"
+    },
+    {
+      "input": "[3,2,4]\n6",
+      "output": "[1,2]",
+      "explanation": "nums[1] + nums[2] = 2 + 4 = 6"
+    },
+    {
+      "input": "[3,3]\n6",
+      "output": "[0,1]",
+      "explanation": "nums[0] + nums[1] = 3 + 3 = 6"
+    }
+  ],
+  "hiddenTestCases": [
+    {
+      "input": "[1,5,3,7,9]\n10",
+      "output": "[1,3]"
+    },
+    {
+      "input": "[0,4,3,0]\n0",
+      "output": "[0,3]"
+    },
+    {
+      "input": "[-1,-2,-3,-4,-5]\n-8",
+      "output": "[2,4]"
+    }
+  ],
+  "startCode": [
+    {
+      "language": "python",
+      "initialCode": "import json\n\nnums = json.loads(input())\ntarget = int(input())\n\n# Write your solution here\n"
+    },
+    {
+      "language": "cpp",
+      "initialCode": "#include <iostream>\n#include <vector>\n#include <sstream>\nusing namespace std;\n\nint main() {\n    string line;\n    getline(cin, line);\n    \n    vector<int> nums;\n    line = line.substr(1, line.size()-2);\n    stringstream ss(line);\n    string num;\n    while(getline(ss, num, ',')) {\n        nums.push_back(stoi(num));\n    }\n    \n    int target;\n    cin >> target;\n    \n    // Write your solution here\n    \n    return 0;\n}"
+    },
+    {
+      "language": "javascript",
+      "initialCode": "const readline = require('readline');\nconst rl = readline.createInterface({input: process.stdin});\n\nlet lines = [];\nrl.on('line', (line) => {\n    lines.push(line);\n    if (lines.length === 2) {\n        const nums = JSON.parse(lines[0]);\n        const target = parseInt(lines[1]);\n        \n        // Write your solution here\n        \n        rl.close();\n    }\n});"
+    }
+  ],
+  "referenceSolution": [
+    {
+      "language": "python",
+      "initialCode": "import json\nnums = json.loads(input())\ntarget = int(input())\nseen = {}\nfor i, num in enumerate(nums):\n    complement = target - num\n    if complement in seen:\n        print(json.dumps([seen[complement], i], separators=(',', ':')))\n        break\n    seen[num] = i"
+    },
+    {
+      "language": "cpp",
+      "initialCode": "#include <iostream>\n#include <vector>\n#include <unordered_map>\n#include <sstream>\nusing namespace std;\n\nint main() {\n    string line;\n    getline(cin, line);\n    vector<int> nums;\n    line = line.substr(1, line.size()-2);\n    stringstream ss(line);\n    string num;\n    while(getline(ss, num, ',')) {\n        nums.push_back(stoi(num));\n    }\n    int target;\n    cin >> target;\n    unordered_map<int, int> seen;\n    for(int i = 0; i < nums.size(); i++) {\n        int complement = target - nums[i];\n        if(seen.count(complement)) {\n            cout << \"[\" << seen[complement] << \",\" << i << \"]\";\n            return 0;\n        }\n        seen[nums[i]] = i;\n    }\n    return 0;\n}"
+    },
+    {
+      "language": "javascript",
+      "initialCode": "const readline = require('readline');\nconst rl = readline.createInterface({input: process.stdin});\nlet lines = [];\nrl.on('line', (line) => {\n    lines.push(line);\n    if (lines.length === 2) {\n        const nums = JSON.parse(lines[0]);\n        const target = parseInt(lines[1]);\n        const seen = {};\n        for (let i = 0; i < nums.length; i++) {\n            const complement = target - nums[i];\n            if (complement in seen) {\n                console.log(JSON.stringify([seen[complement], i]));\n                break;\n            }\n            seen[nums[i]] = i;\n        }\n        rl.close();\n    }\n});"
+    }
+  ]
+}
+------------------------------------------------------------------------------------------------------------
+submitResult={
+    success: true,
+    totalTests: 3,
+    passedTests: 2,
+    failedTests: 1,
+    allPassed: false,
+    results: [
+        {
+            input: "[2,7,11,15]\n9",
+            expected: "[0,1]",
+            actual: "[0,1]",
+            passed: true,
+            stderr: "",
+            exitCode: 0
+        },
+        {
+            input: "[3,2,4]\n6",
+            expected: "[1,2]",
+            actual: "[1,2]",
+            passed: true,
+            stderr: "",
+            exitCode: 0
+        },
+        {
+            input: "[3,3]\n6",
+            expected: "[0,1]",
+            actual: "[0,2]",
+            passed: false,
+            stderr: "",
+            exitCode: 0
+        }
+    ]
+}

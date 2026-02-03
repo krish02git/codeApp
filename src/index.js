@@ -1,5 +1,5 @@
 //  config env :-
-require('dotenv').config();
+require('dotenv').config({ path: './.env' });
 
 // Server Created :- 
 const express = require('express');
@@ -18,12 +18,12 @@ const redisClient = require('./config/redis');
 
 // Router :-
 const authRouter = require("./routes/userAuth");
-
+const problemRouter = require("./routes/problemCreator");
 
 
 
 app.use('/user', authRouter);
-
+app.use('/problem', problemRouter);
 
 
 

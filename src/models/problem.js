@@ -16,7 +16,7 @@ const problemSchema = new Schema({
         enum: ['Easy', 'Medium', 'Hard']
     },
     tags: {
-        type: String,
+        type: [String],
         enum: [
             "Array",
             "String",
@@ -104,7 +104,8 @@ const problemSchema = new Schema({
         {
             language:{
                 type:String,
-                required:true
+                required:true,
+                 enum: ['python', 'cpp', 'javascript', 'java', 'c', 'go', 'rust']  
             },
             initialCode:{
                 type:String,
