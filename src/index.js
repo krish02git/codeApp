@@ -1,5 +1,5 @@
 //  config env :-
-require('dotenv').config({ path: './.env' });
+require('dotenv').config();
 
 // Server Created :- 
 const express = require('express');
