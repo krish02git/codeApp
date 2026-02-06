@@ -19,11 +19,13 @@ const redisClient = require('./config/redis');
 // Router :-
 const authRouter = require("./routes/userAuth");
 const problemRouter = require("./routes/problemCreator");
+const submitRouter = require("./routes/submit");
 
 
 
 app.use('/user', authRouter);
 app.use('/problem', problemRouter);
+app.use('/submission',submitRouter);
 
 
 

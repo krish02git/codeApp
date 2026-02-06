@@ -1,4 +1,5 @@
 const Problem = require('../models/problem');
+const User = require('../models/user');
 const { getLanguageById, submitBatch ,getFileName} = require('../utils/ProblemUtility');
 
 const CreateProblem = async (req, res) => {
@@ -165,7 +166,16 @@ const getAllProblem = async (req,res)=>{
 const SolvedAllProblemByUser= async (req,res)=>{
     // when submit -> store : userId + problemId + code,language,time,memory,status->Err,complie,testcasePass,
     // run -> no need to store , only submit!
-
+    try{
+        const userId = req.result._id;
+        const user = await User.findById(userId).populate("problemSolved").select("_id title difficulty tags");
+        const count = user.problemSolved.length;
+        res.status(200).send("Total solved problem : " + count + "\n" + user.problemSolved);
+    }catch(err){
+        res.status(500).send("Error : "+ err.message);
+    }
 }
+
+// populate : ref='' used in Schema !
 
 module.exports = { CreateProblem , UpdateProblem, DeleteProblem,getProblemById,SolvedAllProblemByUser, getAllProblem};

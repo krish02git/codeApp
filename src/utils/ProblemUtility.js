@@ -46,7 +46,7 @@ const submitBatch = async (submissions) => {
         // Execute submissions SEQUENTIALLY with delay (not parallel)
         for (const submission of submissions) {
             try {
-                const response = await axios.post('https://emkc.org/api/v2/piston/execute', {
+                const response = await axios.post(process.env.PISTON, {
                     language: submission.language,
                     version: submission.version,
                     files: submission.files,

@@ -11,7 +11,7 @@ problemRouter.post("/create",adminMiddlerware, CreateProblem); //admin
 problemRouter.get("/getAllProblem",userMiddleware, getAllProblem); // all problem
 problemRouter.get("/problemById/:id", userMiddleware, getProblemById);
 // Solved problem
-// problemRouter.get("/problemSloved",userMiddleware, SolvedAllProblemByUser);
+problemRouter.get("/problemSloved",userMiddleware, SolvedAllProblemByUser);
 // update problem
 problemRouter.put("/update/:id",adminMiddlerware, UpdateProblem); // admin --send all 
 // Delete problem

@@ -40,14 +40,14 @@ const userSchema = new Schema({
         default: 'user',
         required: true
     },
+    //unique
     problemSolved: {
-        type: [String],
+        type: [{
+            type:Schema.Types.ObjectId, //problemId
+            ref:'problem'
+        }],
+        unique:true,
         default: []
-    },
-    problemsSolvedCount: {
-        type: Number,
-        default: 0,
-        min: 0
     },password :{
         type:String,
         required : true
