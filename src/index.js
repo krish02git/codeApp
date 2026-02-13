@@ -6,9 +6,7 @@ const express = require('express');
 const app = express();
 app.use(express.json()); // req.body in json -to> jsObject 
 
-// bcrypt & jwt & cookies :-
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+// bcrypt & jwt & cookies used in password area:-
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
@@ -26,10 +24,6 @@ const submitRouter = require("./routes/submit");
 app.use('/user', authRouter);
 app.use('/problem', problemRouter);
 app.use('/submission',submitRouter);
-
-
-
-
 
 
 

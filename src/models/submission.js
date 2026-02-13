@@ -48,5 +48,8 @@ const submissionSchema = new Schema({
     }
 }, { timestamps: true });
 
+// Indexing : compound Index. 1-> both fields are arranged in ascending order.
+submissionSchema.index({userId:1, problemId:1});
+
 const Submission = mongoose.model('submission', submissionSchema);
 module.exports = Submission;

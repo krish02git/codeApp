@@ -1,0 +1,19 @@
+Indexing to fetch data fast. In schema which we ar e using more then use that as index.
+Indexing takes space.
+Here userId + problemId Index.
+
+// Indexing : compound Index. 1->assending order both userId & problemId! -> Binary search
+submissionSchema.index({userId:1, problemId:1});
+
+B+ Tree -> range querry also + Binary Search.
+Disadvanges -> space!
+
+userId  | problemId
+--------|----------
+1       | 5
+1       | 10
+1       | 15
+2       | 3
+2       | 8
+3       | 1
+3       | 7

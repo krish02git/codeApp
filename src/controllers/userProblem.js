@@ -1,4 +1,5 @@
 const Problem = require('../models/problem');
+const Submission = require('../models/submission');
 const User = require('../models/user');
 const { getLanguageById, submitBatch ,getFileName} = require('../utils/ProblemUtility');
 
@@ -175,7 +176,20 @@ const SolvedAllProblemByUser= async (req,res)=>{
         res.status(500).send("Error : "+ err.message);
     }
 }
-
 // populate : ref='' used in Schema !
 
-module.exports = { CreateProblem , UpdateProblem, DeleteProblem,getProblemById,SolvedAllProblemByUser, getAllProblem};
+const submittedProblems = async (req,res)=>{
+    try{
+        const problemId = req.params.problemId;
+        const userId = req.result._id;
+        const ans = await Submission.find({userId,problemId});
+        if(ans.length==0)
+            res.status(200).send("No submission.");
+        res.status(200).send(ans);
+    }catch(err){
+        res.status(500).send("Error : "+ err.message);
+    }
+}
+
+
+module.exports = { CreateProblem , submittedProblems,UpdateProblem, DeleteProblem,getProblemById,SolvedAllProblemByUser, getAllProblem};
